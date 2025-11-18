@@ -1,0 +1,36 @@
+{
+  "name": "restfull-api",
+  "version": "1.0.0",
+  "description": "Belajar NodeJS Resfull API",
+  "license": "ISC",
+  "author": "Hafiz Pratamma",
+  "type": "module",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "jest -i"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "joi": "^18.0.1",
+    "uuid": "^13.0.0",
+    "winston": "^3.18.3"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.28.5",
+    "@types/bcrypt": "^6.0.0",
+    "@types/express": "^5.0.5",
+    "@types/jest": "^30.0.0",
+    "@types/supertest": "^6.0.3",
+    "@types/uuid": "^10.0.0",
+    "babel-jest": "^30.2.0",
+    "jest": "^30.2.0",
+    "prisma": "^6.19.0",
+    "supertest": "^7.1.4"
+  }
+}
