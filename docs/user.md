@@ -6,17 +6,17 @@ Endpoint: POST /api/users
 Request Body:
 ```json 
 {
-    "username": "",
-    "password": "",
-    "name": ""
+    "username": "Hafiz123",
+    "password": "adalah",
+    "name": "hafiz pratama"
 }
 ```
 Response Body Succes:
 ```json
 {
     "data":{
-        "username":"",
-        "name":""
+        "username":"hafiz123",
+        "name":"hafiz pratama"
     }
 }
 ```
@@ -32,8 +32,8 @@ Endpoint: POST /api/users/login
 Request Body:
 ```json
 {
-    "username":"",
-    "password":""
+    "username":"hafiz pratama",
+    "password":"adalah"
 }
 ```
 Response Body Succes:
@@ -69,8 +69,8 @@ Response Body Success:
 ```json
 {
     "data":{
-        "username":"",
-        "name":""
+        "username":"hafiz123",
+        "name":"hafiz pratama"
     }
 }
 ```
@@ -91,8 +91,8 @@ Response Body Succes:
 ```json
 {
     "data":{
-        "username":"",
-        "name":""
+        "username":"hafiz123",
+        "name":"hafiz pratama"
     }
 }
 ```
