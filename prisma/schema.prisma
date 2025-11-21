@@ -14,12 +14,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model_User {
-  id int @id @db.int(10)
-  username String @db.Varchar(100)
-  password String @db.Varchar(100)
-  name String @db.Varchar(100)
-  token String? @db.Varchar(100)
+model User {
+  id Int @id @default(autoincrement())
+  username String @db.VarChar(100)
+  password String @db.VarChar(100)
+  name String @db.VarChar(100)
+  token String? @db.VarChar(100)
 
   @@map("users")
 }
