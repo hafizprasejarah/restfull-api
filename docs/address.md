@@ -152,6 +152,6 @@ Response Body Succes:
 Response Body Errors:
 ```json
 {
-    "errors": "Address is not found"
+    "errors": "Addresswa is not found"
 }
 ``` 
