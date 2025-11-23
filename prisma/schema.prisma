@@ -20,6 +20,20 @@ model User {
   password String @db.VarChar(100)
   name String @db.VarChar(100)
   token String? @db.VarChar(100)
+  contacts Contacts[]
 
   @@map("users")
+}
+
+model Contacts{
+  id Int @id @default(autoincrement())
+  first_name String @db.VarChar(100)
+  last_name String? @db.VarChar(100)
+  email String? @db.VarChar(200)
+  phone String? @db.VarChar(20)
+  userId Int 
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("contacts")
 }
