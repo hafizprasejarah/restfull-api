@@ -32,8 +32,22 @@ model Contacts{
   email String? @db.VarChar(200)
   phone String? @db.VarChar(20)
   userId Int 
-
+  addresses Address[]
   user User @relation(fields: [userId], references: [id])
 
   @@map("contacts")
+}
+
+model Address{
+  id Int @id @default(autoincrement())
+  street String? @db.VarChar(255)
+  city String? @db.VarChar(100)
+  province String? @db.VarChar(100)
+  country String @db.VarChar(100)
+  postal_code String @db.VarChar(10)
+  contactId Int
+
+  contact Contacts @relation(fields: [contactId], references: [id])
+
+  @@map("addresses")
 }
