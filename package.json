@@ -10,9 +10,13 @@
     "test": "jest -i"
   },
   "jest": {
+    "testEnvironment": "node",
     "transform": {
       "^.+\\.[t|j]sx?$": "babel-jest"
-    }
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!uuid)/"
+    ]
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
