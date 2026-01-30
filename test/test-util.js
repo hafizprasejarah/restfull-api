@@ -13,13 +13,21 @@ const createTestUser = async () => {
     await prismaClient.user.create({
         data: {
             username: 'test',
-            password:  await bcrypt.hash('Rahasia',10),
+            password: await bcrypt.hash('Rahasia', 10),
             name: 'test',
             token: 'test'
         }
     })
 }
 
+const getUser = async () => {
+    return prismaClient.user.findUnique({
+        where: {
+            username: 'test'
+        }
+    });
+}
+
 export {
-    removeTestUser,createTestUser
+    removeTestUser, createTestUser, getUser
 }

@@ -3,6 +3,8 @@ import { web } from "../src/application/web";
 import { logger } from "../src/application/logging";
 import { removeTestUser } from "../test/test-util.js";
 import { createTestUser } from "../test/test-util.js";
+import { getUser } from "../test/test-util.js";
+import bcrypt from 'bcrypt';
 
 describe('POST /api/users', function name() {
     afterEach(async () => {
@@ -152,5 +154,49 @@ describe('GET /api/users/curre', function () {
         expect(result.status).toBe(401);
         expect(result.body.errors).toBeDefined();
 
+    });
+});
+
+
+describe('PATCH /api/users/current', function () {
+    beforeEach(async () => {
+        await createTestUser();
+    });
+
+    afterEach(async () => {
+        await removeTestUser();
+    });
+
+    it('Should update current user', async () => {
+        const result = await supertest(web)
+            .patch('/api/users/current')
+            .set('Authorization', 'test')
+            .send({
+                password: 'Rahasia',
+                name: 'Hafiz'
+            })
+
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.username).toBe('test');
+        expect(result.body.data.name).toBe('Hafiz');
+
+        const user = await getUser();
+        expect(await bcrypt.compare('Rahasia', user.password)).toBe(true);
+    });
+
+     it('Should update current user name only', async () => {
+        const result = await supertest(web)
+            .patch('/api/users/current')
+            .set('Authorization', 'test')
+            .send({
+                password: 'Rahasia',
+                name: 'Hafiz'
+            })
+
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.username).toBe('test');
+        expect(result.body.data.name).toBe('Hafiz');
     });
 });
