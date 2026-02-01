@@ -5,6 +5,7 @@ import { removeTestUser } from "../test/test-util.js";
 import { createTestUser } from "../test/test-util.js";
 import { getUser } from "../test/test-util.js";
 import bcrypt from 'bcrypt';
+import e from "express";
 
 describe('POST /api/users', function name() {
     afterEach(async () => {
@@ -185,18 +186,71 @@ describe('PATCH /api/users/current', function () {
         expect(await bcrypt.compare('Rahasia', user.password)).toBe(true);
     });
 
-     it('Should update current user name only', async () => {
+    it('Should update current user name only', async () => {
         const result = await supertest(web)
             .patch('/api/users/current')
             .set('Authorization', 'test')
             .send({
-                password: 'Rahasia',
-                name: 'Hafiz'
+                name: 'Hafidz'
             })
 
 
         expect(result.status).toBe(200);
         expect(result.body.data.username).toBe('test');
-        expect(result.body.data.name).toBe('Hafiz');
+        expect(result.body.data.name).toBe('Hafidz');
+    });
+
+
+    it('Should update current user password only', async () => {
+        const result = await supertest(web)
+            .patch('/api/users/current')
+            .set('Authorization', 'test')
+            .send({
+                password: 'Rahasia',
+            })
+
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.username).toBe('test');
+        expect(result.body.data.name).toBe('test');
+
+
+        const user = await getUser();
+        expect(await bcrypt.compare('Rahasia', user.password)).toBe(true);
+    });
+
+
+    it('Should reject update current user if request is invalid', async () => {
+        const result = await supertest(web)
+            .patch('/api/users/current')
+            .set('Authorization', 'tes')
+            .send({
+            })
+
+
+        expect(result.status).toBe(401);
+    });
+
+});
+
+describe('DELETE /api/users/logout', function () {
+    beforeEach(async () => {
+        await createTestUser();
+    });
+
+    afterEach(async () => {
+        await removeTestUser();
+    }); 
+
+    it('Should logout user', async () => {
+        const result = await supertest(web)
+            .delete('/api/users/logout')
+            .set('Authorization', 'test');
+
+        expect(result.status).toBe(200);
+        expect(result.body.data).toBe('ok');
+
+        const user = await getUser();
+        expect(user.token).toBeNull();
     });
 });
