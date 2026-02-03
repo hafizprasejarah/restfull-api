@@ -7,13 +7,14 @@ import { authMiddleware } from "../middleware/auth-middleware.js";
 const userRouter = new express.Router();
 userRouter.use(authMiddleware);
 // user API
-userRouter.get('/api/users/current',userController.get);
-userRouter.patch('/api/users/current',userController.update);
-userRouter.delete('/api/users/logout',userController.logout);
+userRouter.get('/api/users/current', userController.get);
+userRouter.patch('/api/users/current', userController.update);
+userRouter.delete('/api/users/logout', userController.logout);
 
 
 // contact API
-userRouter.post('/api/contacts',contactController.create);
+userRouter.post('/api/contacts', contactController.create);
+userRouter.get('/api/contacts/:contactId', contactController.get);
 
 
 
