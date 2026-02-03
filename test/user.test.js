@@ -5,7 +5,7 @@ import { removeTestUser } from "../test/test-util.js";
 import { createTestUser } from "../test/test-util.js";
 import { getUser } from "../test/test-util.js";
 import bcrypt from 'bcrypt';
-import e from "express";
+
 
 describe('POST /api/users', function name() {
     afterEach(async () => {
@@ -240,7 +240,7 @@ describe('DELETE /api/users/logout', function () {
 
     afterEach(async () => {
         await removeTestUser();
-    }); 
+    });
 
     it('Should logout user', async () => {
         const result = await supertest(web)
@@ -253,4 +253,15 @@ describe('DELETE /api/users/logout', function () {
         const user = await getUser();
         expect(user.token).toBeNull();
     });
+
+    it('Should reject logout user if token is invalid', async () => {
+        const result = await supertest(web)
+            .delete('/api/users/logout')
+            .set('Authorization', 'salah');
+
+        expect(result.status).toBe(401);
+        expect(result.body.errors).toBeDefined();
+    });
+
+
 });
