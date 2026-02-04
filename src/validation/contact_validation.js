@@ -19,7 +19,7 @@ const updateContactValidation = joi.object({
 
 const searchContactValidation = joi.object({
     page: joi.number().min(1).positive().default(1),
-    size: joi.number().min(1).max(100).positive().default(1),
+    size: joi.number().min(1).max(100).positive().default(10),
     name: joi.string().optional(),
     email: joi.string().optional(),
     phone: joi.string().optional(),
@@ -29,5 +29,6 @@ const searchContactValidation = joi.object({
 export {
     createContactValidation,
     getContactValidation,
-    updateContactValidation
+    updateContactValidation,
+    searchContactValidation
 }

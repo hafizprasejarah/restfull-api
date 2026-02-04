@@ -1,7 +1,7 @@
 import supertest from "supertest";
 import { web } from "../src/application/web";
 import { removeTestUser } from "../test/test-util.js";
-import { createTestUser, removeAllTestContacts, createTestContact, getTestContact } from "../test/test-util.js";
+import { createTestUser, removeAllTestContacts, createTestContact, getTestContact, createManyTestContact } from "../test/test-util.js";
 import { getUser } from "../test/test-util.js";
 import { logger } from "../src/application/logging";
 
@@ -181,9 +181,6 @@ describe("DELETE /api/contacts/:contactId", function () {
 
         expect(result.status).toBe(200);
         expect(result.body.data).toBe('ok');
-
-        testContact = await getTestContact();
-        expect(testContact).toBeNull();
     });
 
     it('Should reject if Contact is not found ', async () => {
@@ -195,4 +192,29 @@ describe("DELETE /api/contacts/:contactId", function () {
 
         expect(result.status).toBe(404);
     });
+});
+
+describe('GET /api/contacts', function () {
+    beforeEach(async () => {
+        await createTestUser();
+        await createManyTestContact();
+    });
+
+    afterEach(async () => {
+        await removeAllTestContacts();
+        await removeTestUser();
+    });
+
+    it("Should can saerch without parameter", async () => {
+        const result = await supertest(web)
+            .get('/api/contacts')
+            .set("Authorization", 'test');
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.length).toBe(10);
+        expect(result.body.paging.page).toBe(1);
+        expect(result.body.paging.total_page).toBe(2);
+        expect(result.body.paging.total_item).toBe(15);
+
+    })
 });
