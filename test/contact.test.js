@@ -205,7 +205,7 @@ describe('GET /api/contacts', function () {
         await removeTestUser();
     });
 
-    it("Should can saerch without parameter", async () => {
+    it("Should can search without parameter", async () => {
         const result = await supertest(web)
             .get('/api/contacts')
             .set("Authorization", 'test');
@@ -216,5 +216,72 @@ describe('GET /api/contacts', function () {
         expect(result.body.paging.total_page).toBe(2);
         expect(result.body.paging.total_item).toBe(15);
 
-    })
+    });
+
+
+    it("Should can search to page 2", async () => {
+        const result = await supertest(web)
+            .get('/api/contacts')
+            .query({
+                page: 2
+            })
+            .set("Authorization", 'test');
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.length).toBe(5);
+        expect(result.body.paging.page).toBe(2);
+        expect(result.body.paging.total_page).toBe(2);
+        expect(result.body.paging.total_item).toBe(15);
+
+    });
+
+
+    it("can search by the name", async () => {
+        const result = await supertest(web)
+            .get('/api/contacts')
+            .query({
+                name: 'test 1'
+            })
+            .set("Authorization", 'test');
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.length).toBe(6);
+        expect(result.body.paging.page).toBe(1);
+        expect(result.body.paging.total_page).toBe(1);
+        expect(result.body.paging.total_item).toBe(6);
+
+    });
+
+
+    it("can search by the email", async () => {
+        const result = await supertest(web)
+            .get('/api/contacts')
+            .query({
+                email: 'contact1'
+            })
+            .set("Authorization", 'test');
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.length).toBe(6);
+        expect(result.body.paging.page).toBe(1);
+        expect(result.body.paging.total_page).toBe(1);
+        expect(result.body.paging.total_item).toBe(6);
+    });
+
+    it("can search by the phone", async () => {
+        const result = await supertest(web)
+            .get('/api/contacts')
+            .query({
+                phone: '081234567891'
+            })
+            .set("Authorization", 'test');
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.length).toBe(6);
+        expect(result.body.paging.page).toBe(1);
+        expect(result.body.paging.total_page).toBe(1);
+        expect(result.body.paging.total_item).toBe(6);
+
+    });
+
 });
