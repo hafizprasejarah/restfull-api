@@ -26,7 +26,7 @@ const get = async (user, contactId) => {
     const contact = await prismaClient.contacts.findFirst({
         where: {
             id: id,
-            userId: user.id 
+            userId: user.id
         },
         select: {
             id: true,
@@ -44,7 +44,7 @@ const get = async (user, contactId) => {
     return contact;
 }
 
-const update = async (user, request) =>{
+const update = async (user, request) => {
 
     const contact = validate(updateContactValidation, request);
 
@@ -57,7 +57,7 @@ const update = async (user, request) =>{
         }
     });
 
-    if(totalContactInDatabase !== 1){
+    if (totalContactInDatabase !== 1) {
         throw new ResponseError(404, "contact not found");
     }
 
@@ -71,7 +71,7 @@ const update = async (user, request) =>{
             email: contact.email,
             phone: contact.phone
         },
-        select:{
+        select: {
             id: true,
             first_name: true,
             last_name: true,
@@ -81,6 +81,31 @@ const update = async (user, request) =>{
     })
 }
 
+
+const remove = async (user, contactId) => {
+    const id = validate(getContactValidation, contactId);
+
+    const contact = await prismaClient.contacts.count({
+        where: {
+            user: {
+                username: user.username
+            },
+            id: id
+        }
+    })
+
+    if (contact !== 1) {
+        throw new ResponseError(404, "contact not found");
+    }
+
+    return prismaClient.contacts.delete({
+        where: {
+            id: id
+        }
+    })
+}
+
+
 export default {
-    create, get, update
+    create, get, update, remove
 }
