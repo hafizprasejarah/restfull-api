@@ -4,9 +4,9 @@
 Endpoint: POST /api/contact/:contactid/addresses
 
 Headers:
-- Aunthorization : TOken
+- Aunthorization : Token
   
-Reqest Body:
+Request Body:
 ```json
 {
     "street":"Jalan",
