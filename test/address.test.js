@@ -1,6 +1,6 @@
 import supertest from "supertest";
 import { web } from "../src/application/web";
-import { getTestContact, removeTestUser } from "../test/test-util.js";
+import { createTestAddress, getTestAddress, getTestContact, removeTestUser } from "../test/test-util.js";
 import { createTestUser, removeAllTestContacts, createTestContact, removeAllTestAddresses } from "../test/test-util.js";
 import { getUser } from "../test/test-util.js";
 import { logger } from "../src/application/logging";
@@ -85,6 +85,7 @@ describe('GET /api/contacts/:contactId/addresses/:addressId', function () {
     beforeEach(async () => {
         await createTestUser();
         await createTestContact();
+        await createTestAddress();
     });
 
     afterEach(async () => {
@@ -93,4 +94,22 @@ describe('GET /api/contacts/:contactId/addresses/:addressId', function () {
         await removeTestUser();
 
     });
+
+    it('should can get address', async () => {
+        const contact = await getTestContact();
+        const addres = await getTestAddress();
+
+        const result = await supertest(web)
+            .get('/api/contacts/' + contact.id + '/addresses/' + addres.id)
+            .set('Authorization', 'test');
+
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.id).toBeDefined();
+        expect(result.body.data.street).toBe("Jalan Test");
+        expect(result.body.data.city).toBe("Kota Test");
+        expect(result.body.data.province).toBe("Provinsi Test");
+        expect(result.body.data.country).toBe("Indonesia");
+        expect(result.body.data.postal_code).toBe("321321");
+    })
 })

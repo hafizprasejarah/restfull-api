@@ -72,5 +72,5 @@ const get = async (user, contactId, addressId) => {
 }
 
 export default {
-    create, addres
+    create, get
 }

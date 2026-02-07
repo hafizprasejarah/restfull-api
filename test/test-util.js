@@ -1,3 +1,4 @@
+import { when } from "joi";
 import { prismaClient } from "../src/application/database";
 import bcrypt from 'bcrypt';
 
@@ -96,9 +97,31 @@ export const removeAllTestAddresses = async () => {
 }
 
 export const createTestAddress = async () => {
-    
+    const contact = await getTestContact();
+    return prismaClient.address.create({
+        data: {
+            contactId: contact.id,
+            street: "Jalan Test",
+            city: "Kota Test",
+            province: "Provinsi Test",
+            country: "Indonesia",
+            postal_code: "321321"
+        }
+    });
 }
 
+
+export const getTestAddress = async () => {
+    return prismaClient.address.findFirst({
+        where: {
+            contact: {
+                user: {
+                    username: 'test'
+                }
+            }
+        }
+    })
+}
 export {
     removeTestUser, createTestUser, getUser, removeAllTestContacts
 }
