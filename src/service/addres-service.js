@@ -1,4 +1,4 @@
-import { validate } from "uuid";
+import { validate } from "../validation/validation.js";
 import { prismaClient } from "../application/database"
 import { ResponseError } from "../error/response-error";
 import { getContactValidation } from "../validation/contact_validation";
@@ -26,7 +26,7 @@ const create = async (user, contactId, request) => {
 
     return prismaClient.address.create({
         data: address,
-        select:{
+        select: {
             id: true,
             street: true,
             city: true,

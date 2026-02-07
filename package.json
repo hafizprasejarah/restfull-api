@@ -8,9 +8,9 @@
   "main": "src/main.js",
   "scripts": {
     "test": "jest -i",
-        "test:contact": "jest test/contact.test.js",
-    "test:user": "jest test/user.test.js"
-
+    "test:contact": "jest test/contact.test.js",
+    "test:user": "jest test/user.test.js",
+    "test:address": "jest test/address.test.js"
   },
   "jest": {
     "testEnvironment": "node",
