@@ -42,4 +42,55 @@ describe('POST /api/contacts/:contactId/addresses', function () {
         expect(result.body.data.postal_code).toBe("321321");
     });
 
+    it('should reject if address request is invalid', async () => {
+        const testContact = await getTestContact();
+
+        const result = await supertest(web)
+            .post('/api/contacts/' + testContact.id + '/addresses')
+            .set('Authorization', 'test')
+            .send({
+                street: "Jalan Test",
+                city: "Kota Test",
+                province: "Provinsi Test",
+                country: "",
+                postal_code: ""
+            });
+
+        expect(result.status).toBe(400);
+    });
+
+    it('should reject if contact not found', async () => {
+        const testContact = await getTestContact();
+
+        const result = await supertest(web)
+            .post('/api/contacts/' + (testContact.id + 1) + '/addresses')
+            .set('Authorization', 'test')
+            .send({
+                street: "Jalan Test",
+                city: "Kota Test",
+                province: "Provinsi Test",
+                country: "",
+                postal_code: ""
+            });
+
+        expect(result.status).toBe(404);
+    });
+
+
+
 });
+
+
+describe('GET /api/contacts/:contactId/addresses/:addressId', function () {
+    beforeEach(async () => {
+        await createTestUser();
+        await createTestContact();
+    });
+
+    afterEach(async () => {
+        await removeAllTestAddresses();
+        await removeAllTestContacts();
+        await removeTestUser();
+
+    });
+})

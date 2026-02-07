@@ -95,6 +95,10 @@ export const removeAllTestAddresses = async () => {
     });
 }
 
+export const createTestAddress = async () => {
+    
+}
+
 export {
     removeTestUser, createTestUser, getUser, removeAllTestContacts
 }
