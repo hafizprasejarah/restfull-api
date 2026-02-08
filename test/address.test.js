@@ -111,5 +111,71 @@ describe('GET /api/contacts/:contactId/addresses/:addressId', function () {
         expect(result.body.data.province).toBe("Provinsi Test");
         expect(result.body.data.country).toBe("Indonesia");
         expect(result.body.data.postal_code).toBe("321321");
+    });
+
+    it('should reject if contact not found', async () => {
+        const contact = await getTestContact();
+        const addres = await getTestAddress();
+
+        const result = await supertest(web)
+            .get('/api/contacts/' + (contact.id + 1) + '/addresses/' + addres.id)
+            .set('Authorization', 'test');
+
+
+        expect(result.status).toBe(404);
+    });
+
+    it('should reject if address not found', async () => {
+        const contact = await getTestContact();
+        const addres = await getTestAddress();
+
+        const result = await supertest(web)
+            .get('/api/contacts/' + contact.id + '/addresses/' + (addres.id + 1))
+            .set('Authorization', 'test');
+
+
+        expect(result.status).toBe(404);
+    });
+});
+
+describe('PUT /api/contacts/:contactId/addresses/:addressId', function () {
+    beforeEach(async () => {
+        await createTestUser();
+        await createTestContact();
+        await createTestAddress();
+    });
+
+    afterEach(async () => {
+        await removeAllTestAddresses();
+        await removeAllTestContacts();
+        await removeTestUser();
+
+    });
+
+    it('should can update address', async function () {
+        const contact = await getTestContact();
+        const addres = await getTestAddress();
+
+        const result = await supertest(web)
+            .put('/api/contacts/' + contact.id + '/addresses/' + addres.id)
+            .set('Authorization', 'test')
+            .send({
+                street: "Jalan Kenangan",
+                city: "Kota Solo",
+                province: "Provinsi jawa",
+                country: "Indonesiaa",
+                postal_code: "3213213"
+            })
+
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.id).toBe(addres.id);
+        expect(result.body.data.street).toBe("Jalan Kenangan");
+        expect(result.body.data.city).toBe("Kota Solo");
+        expect(result.body.data.province).toBe("Provinsi jawa");
+        expect(result.body.data.country).toBe("Indonesiaa");
+        expect(result.body.data.postal_code).toBe("3213213");
     })
-})
+
+});
+
