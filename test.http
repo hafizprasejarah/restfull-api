@@ -1,9 +1,66 @@
-POST http://localhost:3000/api/users
+# POST http://localhost:3000/api/users
+# Content-Type: application/json
+# Accept : application/json
+
+# {
+#     "username" : "Hafiz",
+#     "password" : "12345",
+#     "name" : "Hafiz Pratama"
+# }
+
+# 
+
+# POST http://localhost:3000/api/users/login
+# Content-Type: application/json
+# Accept : application/json
+
+# {
+#     "username" : "Hafiz",
+#     "password" : "12345"
+# }
+
+# GET  http://localhost:3000/api/users/current
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: 1923a2ef-61c9-4d5a-86a4-d2992cedf121
+
+# PATCH http://localhost:3000/api/users/current
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: 1923a2ef-61c9-4d5a-86a4-d2992cedf121
+
+# {
+#     "username" : "Hafiz",
+#     "password" : "12345",
+#     "name" : "Hafiz Pratama"
+# }
+
+# DELETE  http://localhost:3000/api/users/logout
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: 1923a2ef-61c9-4d5a-86a4-d2992cedf121
+
+
+
+//CONTACT REST TESTING
+
+# 1022
+# 1023
+
+# POST  http://localhost:3000/api/contacts
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: 1923a2ef-61c9-4d5a-86a4-d2992cedf121
+
+# {
+#     "first_name": "dev",
+#     "last_name": "un",
+#     "email": "freedevun@gmail.com",
+#     "phone": "08811221038389"
+# }
+
+
+GET  http://localhost:3000/api/contacts?size=1&page=2
 Content-Type: application/json
 Accept : application/json
-
-{
-    "username" : "Hafiz",
-    "password" : "12345",
-    "name" : "Hafiz Pratama"
-}
+Authorization: 1923a2ef-61c9-4d5a-86a4-d2992cedf121
