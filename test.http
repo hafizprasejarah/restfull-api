@@ -10,24 +10,24 @@
 
 # 
 
-# POST http://localhost:3000/api/users/login
-# Content-Type: application/json
-# Accept : application/json
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+Accept : application/json
 
-# {
-#     "username" : "Hafiz",
-#     "password" : "12345"
-# }
+{
+    "username" : "Hafiz",
+    "password" : "12345"
+}
 
 # GET  http://localhost:3000/api/users/current
 # Content-Type: application/json
 # Accept : application/json
-# Authorization: 1923a2ef-61c9-4d5a-86a4-d2992cedf121
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
 
 # PATCH http://localhost:3000/api/users/current
 # Content-Type: application/json
 # Accept : application/json
-# Authorization: 1923a2ef-61c9-4d5a-86a4-d2992cedf121
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
 
 # {
 #     "username" : "Hafiz",
@@ -38,19 +38,19 @@
 # DELETE  http://localhost:3000/api/users/logout
 # Content-Type: application/json
 # Accept : application/json
-# Authorization: 1923a2ef-61c9-4d5a-86a4-d2992cedf121
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
 
 
 
-//CONTACT REST TESTING
+//=== CONTACT REST TESTING ===
 
 # 1022
-# 1023
+# 1024
 
 # POST  http://localhost:3000/api/contacts
 # Content-Type: application/json
 # Accept : application/json
-# Authorization: 1923a2ef-61c9-4d5a-86a4-d2992cedf121
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
 
 # {
 #     "first_name": "dev",
@@ -60,7 +60,74 @@
 # }
 
 
-GET  http://localhost:3000/api/contacts?size=1&page=2
-Content-Type: application/json
-Accept : application/json
-Authorization: 1923a2ef-61c9-4d5a-86a4-d2992cedf121
+# GET  http://localhost:3000/api/contacts?size=1&page=2
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
+
+# GET  http://localhost:3000/api/contacts/1024
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
+
+# PUT  http://localhost:3000/api/contacts/1024
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
+
+# {
+#     "first_name": "devun",
+#     "last_name": "dr",
+#     "email": "freedevun@gmail.com",
+#     "phone": "08811221038385"
+# }
+
+# DELETE  http://localhost:3000/api/contacts/1023
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
+
+
+# === ADDRESS REST TESTING ===
+# POST  http://localhost:3000/api/contacts/1022/addresses
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
+
+# {
+#     "street": "Jalan Nila no 21",
+#     "city": "Surakarta",
+#     "province": "Jawa Tengah",
+#     "country": "Indonesia",
+#     "postal_code": "321321"
+# }
+
+
+# GET  http://localhost:3000/api/contacts/1022/addresses
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
+
+# GET  http://localhost:3000/api/contacts/1022/addresses/162
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
+
+# PUT  http://localhost:3000/api/contacts/1022/addresses/162
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
+
+# {
+#     "street": "Jalan Gringsing Gambiran",
+#     "city": "Sukoharho",
+#     "province": "Jawa Tengah",
+#     "country": "Indonesia",
+#     "postal_code": "321321"
+# }
+
+
+# DELETE  http://localhost:3000/api/contacts/1022/addresses/163
+# Content-Type: application/json
+# Accept : application/json
+# Authorization: c57bf3e0-b0da-4244-be0e-e31730930a01
